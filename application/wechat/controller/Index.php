@@ -10,6 +10,8 @@ class Index
 		file_put_contents("/home/ubuntu/log/token.txt", $this->token);
 		//验证消息是否来自于微信
 		$this->valid();
+
+		$this->responseMsg();
 	}
 
 
@@ -40,5 +42,47 @@ class Index
 		{
 			file_put_contents("/home/ubuntu/log/error.txt", "error");
 		}
+	}
+
+
+	//相应公众号的信息
+	public function responseMsg() {
+		$rawMessage = file_get_contents("php://input");
+		if(!empty($rawMessage)){
+			$postObj = simplexml_load_string($rawMessage,'SimpleXMLElement', LIBXML_NOCDATA);
+			//消息类型
+			$RX_TYPE = trim($postObj->MsgType);
+			//关注事件
+			if($RX_TYPE == "event" && $postObj->Event == "subscribe"){
+				echo $this->transmitText($postObj,"欢迎关注");
+			}else {
+				echo $this->transmitText($postObj,"其他事件");
+			}
+
+
+
+		}else {
+			//如果微信服务器没有传回内容
+			echo "";
+			exit;
+		}
+	}
+
+
+	private function transmitText($object, $content){
+		if (!isset($content) || empty($content)){
+			            return "";
+        }
+
+        $xmlTpl = "<xml>
+     		<ToUserName><![CDATA[%s]]></ToUserName>
+     		<FromUserName><![CDATA[%s]]></FromUserName>
+     		<CreateTime>%s</CreateTime>
+    		<MsgType><![CDATA[text]]></MsgType>
+    		<Content><![CDATA[%s]]></Content>
+ 			</xml>";
+         $result = sprintf($xmlTpl, $object->FromUserName, $object->ToUserName, time(), $content);
+
+         return $result;
 	}
 }
