@@ -7,6 +7,7 @@ class Index
 	public $token = "timevalues";
 	public function index()
 	{
+		file_put_contents("/home/ubuntu/log/token.txt", $this->token);
 		//验证消息是否来自于微信
 		$this->valid();
 	}
