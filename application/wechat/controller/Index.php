@@ -9,9 +9,14 @@ class Index
 	{
 		file_put_contents("/home/ubuntu/log/token.txt", $this->token);
 		//验证消息是否来自于微信
-		$this->valid();
+		if(isset($_GET["echostr"]))
+		{
+			$this->valid();
 
-		$this->responseMsg();
+		}else
+		{
+			$this->responseMsg();
+		}
 	}
 
 
