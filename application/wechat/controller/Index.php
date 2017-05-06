@@ -15,11 +15,14 @@ class Index
 	//微信首次接入的判断
 	public function valid()
 	{
+		file_put_contents("/home/ubuntu/log/step.txt", "1");
 		//如果没有定义微信后台的token,则
 		if (!$this->token)
 		{
 			return false;
 		}
+
+		file_put_contents("/home/ubuntu/log/step.txt", "2");
 
 		//获取微信请求中以get方式传递的echostr
 		$echo_str = $_GET["echostr"];
