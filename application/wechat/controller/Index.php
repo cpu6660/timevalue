@@ -28,7 +28,7 @@ class Index
 		$calSig = sha1(implode($unsortArray));
 
 		//如果确定是微信传过来的消息,就返回true
-		if ($calSig == $echo_str)
+		if ($calSig == $_GET["signature"])
 		{
 			file_put_contents("/home/ubuntu/log/log.txt", "weixinnews");
 			echo $echo_str;
