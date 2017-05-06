@@ -1,11 +1,10 @@
 <?php
 namespace app\wechat\controller;
 
-//定义微信认证的token
-define("TOKEN", "timevalues");
-
 class Index
 {
+
+	public $token = "timevalues";
 	public function index()
 	{
 		//验证消息是否来自于微信
@@ -17,14 +16,14 @@ class Index
 	public function valid()
 	{
 		//如果没有定义微信后台的token,则
-		if (!defined("TOKEN"))
+		if (!$this->token)
 		{
 			return false;
 		}
 
 		//获取微信请求中以get方式传递的echostr
 		$echo_str = $_GET["echostr"];
-		$unsortArray = array($_GET["timestamp"], $_GET["nonce"], TOKEN);
+		$unsortArray = array($_GET["timestamp"], $_GET["nonce"], $this->token);
 		sort($unsortArray, SORT_STRING);
 		$calSig = sha1(implode($unsortArray));
 
@@ -33,6 +32,9 @@ class Index
 		{
 			file_put_contents("/home/ubuntu/log/log.txt", "weixinnews");
 			echo $echo_str;
+		}else
+		{
+			file_put_contents("/home/ubuntu/log/error.txt", "error");
 		}
 	}
 }
