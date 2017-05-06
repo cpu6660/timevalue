@@ -10,7 +10,7 @@ namespace app\wechat\controller;
 
 class Index {
 	public function index() {
-		echo "wechat ceshi";
+		echo "wechat   ceshi";
 	}
 }
 
