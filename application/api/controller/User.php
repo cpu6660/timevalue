@@ -12,7 +12,7 @@ namespace app\api\controller;
 class User {
 
 	public function index() {
-		var_dump(\think\config::get("_de_msg"));
+		var_dump(json_decode(\think\config::get("_de_msg")));
 		$res = array(
 			"code" => "123",
 			"msg"  => "错误验证",
