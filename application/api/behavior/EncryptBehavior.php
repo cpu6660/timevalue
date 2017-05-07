@@ -8,6 +8,7 @@
  * Time: 23:47
  */
 namespace app\api\behavior;
+use think\org\util\Encrypt;
 
 class EncryptBehavior {
 
@@ -19,12 +20,12 @@ class EncryptBehavior {
 			//如果客户端传来了加密数据的字段 en_msg(该字段可以调整,有客户端和服务端约定好就行)
 			if(isset($_POST['_en_msg'])){
 				//解密后的数据
-				\think\config::set("_de_msg","post_jiamile");
+				\think\config::set("_de_msg",Encrypt::decode($_POST['_en_msg']));
 			}
 		}else{
 			if(isset($_GET['_en_msg'])){
 				//解密后的数据
-				\think\config::set("_de_msg","get_jiamile");
+				\think\config::set("_de_msg",Encrypt::decode($_GET['_en_msg']));
 			}
 		}
 	}
@@ -34,6 +35,9 @@ class EncryptBehavior {
 	 *
 	 */
 	public function appEnd(&$params) {
-		echo "加密成功\n";
+		//如果返回的接口数据存在该字段,则加密
+		if(\think\config::get("_E_JSON")){
+			echo Encrypt::encode(json_encode(\think\config::get("_E_JSON")));
+		}
 	}
 }

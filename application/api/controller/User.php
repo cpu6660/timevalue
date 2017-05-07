@@ -13,5 +13,10 @@ class User {
 
 	public function index() {
 		var_dump(\think\config::get("_de_msg"));
+		$res = array(
+			"code" => "123",
+			"msg"  => "错误验证",
+		);
+		\think\config::set("_E_JSON",$res);
 	}
 }
