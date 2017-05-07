@@ -37,6 +37,7 @@ class EncryptBehavior {
 	public function appEnd(&$params) {
 		//如果返回的接口数据存在该字段,则加密
 		if(\think\config::get("_E_JSON")){
+			header('Content-type: application/json; charset=UTF-8');
 			echo Encrypt::encode(json_encode(\think\config::get("_E_JSON")));
 		}
 	}
