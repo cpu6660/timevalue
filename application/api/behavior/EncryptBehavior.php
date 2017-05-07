@@ -15,7 +15,7 @@ class EncryptBehavior {
 	 * 功能:解密
 	 */
 	public function appInit(&$params) {
-		if(is_post_method()){
+		if(\is_post_method()){
 			echo "post请求";
 		}else{
 			echo "非post请求";
