@@ -12,8 +12,6 @@ namespace app\api\controller;
 class User {
 
 	public function index() {
-		var_dump($_GET);
-		echo "welcome!!!!";
-		var_dump($_POST);
+		var_dump(\think\config::get("_de_msg"));
 	}
 }

@@ -16,9 +16,16 @@ class EncryptBehavior {
 	 */
 	public function appInit(&$params) {
 		if(\is_post_method()){
-			echo "post请求";
+			//如果客户端传来了加密数据的字段 en_msg(该字段可以调整,有客户端和服务端约定好就行)
+			if(isset($_POST['_en_msg'])){
+				//解密后的数据
+				\think\config::set("_de_msg","post_jiamile");
+			}
 		}else{
-			echo "非post请求";
+			if(isset($_GET['_en_msg'])){
+				//解密后的数据
+				\think\config::set("_de_msg","get_jiamile");
+			}
 		}
 	}
 
