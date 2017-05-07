@@ -8,7 +8,7 @@
  * Time: 23:47
  */
 namespace app\api\behavior;
-use think\org\util\Encrypt;
+use \think\org\util\Encrypt;
 
 class EncryptBehavior {
 
